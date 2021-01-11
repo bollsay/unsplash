@@ -6,14 +6,24 @@
         <form class="search-form" @submit.prevent=""> <!--submit-->
           <div class="search-form--input">
             <img src="@/assets/loupe.svg" alt="loupe">
-            <input type="text" v-model="value">
+            <input
+                type="text"
+                v-model="value"
+            >
           </div>
           <button type="submit">search</button>
         </form>
       </div>
       <ul class="photos-list">
-        <li class="photos-list--item" v-for="photo in searchPhotos.results" :key="photo.id">
-          <img :src="photo.urls.small" :alt="photo.alt_description">
+        <li
+            class="photos-list--item"
+            v-for="photo in searchPhotos.results"
+            :key="photo.id"
+        >
+          <img
+              :src="photo.urls.small"
+              :alt="photo.alt_description"
+          >
         </li>
       </ul>
     </div>

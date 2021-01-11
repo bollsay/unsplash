@@ -19,6 +19,9 @@ export default {
   getters: {
     allPhotos(state) {
       return state.photos
+    },
+    loading(state) {
+      return state.loading = false
     }
   }
 }

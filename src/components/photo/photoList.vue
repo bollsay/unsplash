@@ -1,12 +1,23 @@
 <template>
   <ul class="photo-list">
-    <li class="photo-list--item" v-for="photo in allPhotos" :key="photo.id">
+    <li
+        class="photo-list--item"
+        v-for="photo in allPhotos"
+        :key="photo.id"
+    >
       <div class="photo-list--img">
-        <img :src="photo.urls.small" :alt="photo.alt_description">
+        <img
+            :src="photo.urls.small"
+            :alt="photo.alt_description"
+        >
       </div>
       <div class="photo-list--info">
         <span class="photo-list--user">
-          <img :src="photo.user.profile_image.small" alt="" class="photo-list--logo">
+          <img
+              :src="photo.user.profile_image.small"
+              alt="error"
+              class="photo-list--logo"
+          >
           <span class="photo-list--name">{{photo.user.name}}</span>
         </span>
         <span class="photo-list--like">

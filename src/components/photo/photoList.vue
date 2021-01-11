@@ -1,73 +1,44 @@
 <template>
   <ul class="photo-list">
-    <li
-        class="photo-list--item"
-        v-for="photo in allPhotos"
-        :key="photo.id"
-    >
-      <div class="photo-list--img">
-        <img
-            :src="photo.urls.small"
-            :alt="photo.alt_description"
-        >
-      </div>
-      <div class="photo-list--info">
-        <span class="photo-list--user">
-          <img
-              :src="photo.user.profile_image.small"
-              alt="error"
-              class="photo-list--logo"
-          >
-          <span class="photo-list--name">{{photo.user.name}}</span>
-        </span>
-        <span class="photo-list--like">
-          Like: {{photo.likes}}
-        </span>
-      </div>
-    </li>
+    <photoItem
+      v-for="(photo, index) in photos"
+      :key="index"
+      :imgSrcMain="photo.urls.small"
+      :alt="photo.alt_description"
+      :imgUser="photo.user.profile_image.medium"
+      :userName="photo.user.name"
+      :mainLike="photo.likes"
+    />
   </ul>
 </template>
 
 <script>
-  import {mapActions, mapGetters} from "vuex"
-
+  import photoItem from "@/components/photo/photoItem";
+  const accessKey = 'wrNdh1CzRuXK4Q8wa083yhC8sZoag7AXbXw6JZJvGzg'
   export default {
     name: "photoList",
-    computed: mapGetters(['allPhotos']),
-    methods: mapActions(['fetchPhoto']),
+    components: {
+      photoItem
+    },
+    data() {
+      return {
+        photos: []
+      }
+    },
     mounted() {
-      this.fetchPhoto()
+      const get = `https://api.unsplash.com/photos?client_id=${accessKey}&per_page=50&orientation=squarish`
+      this.axios.get(get).then(response => {
+        this.photos = response.data
+      })
     }
   }
 </script>
 
 <style lang="scss" scoped>
   .photo-list {
-    display: flex;
-    flex-flow: row wrap;
-    justify-content: space-evenly;
-    margin: 50px 0;
-    &--item {
-      display: flex;
-      flex-direction: column;
-      margin: 15px 0;
-    }
-    &--info {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 10px 25px;
-      background-color: #2e86de;
-    }
-    &--user {
-      display: flex;
-      align-items: center;
-      img {
-        margin-right: 20px;
-      }
-    }
-    &--like {
-
-    }
+    display: grid;
+    grid-template-columns: repeat(2, 50%);
+    grid-row-gap: 50px;
+    margin-top: 50px;
   }
 </style>

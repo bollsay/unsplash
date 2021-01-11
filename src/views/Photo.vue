@@ -1,6 +1,6 @@
 <template>
   <div class="photo">
-    <Header/>
+    <vHeader/>
     <div class="container">
       <PhotoList/>
     </div>
@@ -8,11 +8,11 @@
 </template>
 
 <script>
-  import Header from "@/components/header/header";
+  import vHeader from "@/components/header/header";
   import PhotoList from "@/components/photo/photoList";
   export default {
     components: {
-      Header,
+      vHeader,
       PhotoList
     }
   }

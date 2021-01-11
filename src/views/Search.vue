@@ -1,57 +1,50 @@
 <template>
   <div class="search">
-    <Header />
+    <vHeader />
     <div class="container">
       <div class="search-wrap">
-        <form class="search-form" @submit.prevent=""> <!--submit-->
-          <div class="search-form--input">
-            <img src="@/assets/loupe.svg" alt="loupe">
-            <input
-                type="text"
-                v-model="value"
-            >
-          </div>
-          <button type="submit">search</button>
-        </form>
+        <Search @search="searchPhoto" />
       </div>
-      <ul class="photos-list">
-        <li
-            class="photos-list--item"
-            v-for="photo in searchPhotos.results"
-            :key="photo.id"
-        >
-          <img
-              :src="photo.urls.small"
-              :alt="photo.alt_description"
-          >
-        </li>
+      <ul class="photo-list">
+        <photoItem
+            v-for="(photo, index) in photos"
+            :key="index"
+            :imgSrcMain="photo.urls.small"
+            :alt="photo.alt_description"
+            :imgUser="photo.user.profile_image.medium"
+            :userName="photo.user.name"
+            :mainLike="photo.likes"
+        />
       </ul>
     </div>
   </div>
 </template>
 
 <script>
-  import Header from "@/components/header/header";
-  import {mapActions, mapGetters} from "vuex";
+  import vHeader from "@/components/header/header";
+  import Search from '@/components/search'
+  import photoItem from '@/components/photo/photoItem'
 
+  const accessKey = 'wrNdh1CzRuXK4Q8wa083yhC8sZoag7AXbXw6JZJvGzg'
   export default {
     components: {
-      Header
+      vHeader,
+      Search,
+      photoItem
     },
     data() {
       return {
-        value: 'red'
+        photos: []
       }
     },
-    computed: mapGetters(['searchPhotos']),
     methods: {
-      ...mapActions(['fetchSearchPhoto']),
-      // submit() {
-      //   return this.value
-      // }
-    },
-    mounted() {
-      this.fetchSearchPhoto(this.value) // Если на прямую ввести запрос работает "this.fetchSearchPhoto('red')" или брать запрос с value "this.value"
+      searchPhoto(value) {
+        const get = `https://api.unsplash.com/search/photos?query=${value}&client_id=${accessKey}&per_page=50&orientation=squarish`
+        this.axios.get(get).then(response => {
+          this.photos = response.data.results
+          value = ''
+        })
+      }
     }
   }
 </script>
@@ -63,30 +56,12 @@
     justify-content: center;
     align-items: center;
     margin-top: 30px;
-   }
-  &-form {
-    display: flex;
-  &--input {
-    display: flex;
-    align-items: center;
-    border: 1px solid #000;
-    padding: 5px;
-    img {
-      width: 16px;
-      height: 16px;
-      margin-right: 5px;
-    }
-    input {
-      border: 0;
-      outline: none;
-    }
-    }
-    button {
-      background-color: #222f3e;
-      border: 0;
-      color: #fff;
-      padding: 5px 10px;
-    }
+  }
+  .photo-list {
+    display: grid;
+    grid-template-columns: repeat(2, 50%);
+    grid-row-gap: 50px;
+    margin-top: 50px;
   }
 }
 </style>

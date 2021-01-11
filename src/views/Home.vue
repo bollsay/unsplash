@@ -1,19 +1,19 @@
 <template>
   <div class="home">
-    <Header/>
+    <vHeader/>
     <Slide/>
   </div>
 </template>
 
 <script>
 // Components
-import Header from "@/components/header/header";
+import vHeader from "@/components/header/header";
 import Slide from "@/components/slide/slide";
 
 export default {
   name: 'Home',
   components: {
-    Header,
+    vHeader,
     Slide
   }
 }

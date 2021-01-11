@@ -6,7 +6,7 @@
           Senim Unsplash
         </router-link>
         <nav class="header-nav">
-          <Nav />
+          <vNav />
         </nav>
       </div>
     </div>
@@ -14,11 +14,11 @@
 </template>
 
 <script>
-  import Nav from "@/components/header/nav";
+  import vNav from "@/components/header/nav";
   export default {
     name: "header",
     components: {
-      Nav
+      vNav
     }
   }
 </script>

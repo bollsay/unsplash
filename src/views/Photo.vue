@@ -10,6 +10,7 @@
 <script>
   import vHeader from "@/components/header/header";
   import PhotoList from "@/components/photo/photoList";
+
   export default {
     components: {
       vHeader,

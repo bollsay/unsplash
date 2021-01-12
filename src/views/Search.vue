@@ -5,17 +5,19 @@
       <div class="search-wrap">
         <Search @search="searchPhoto" />
       </div>
-      <ul class="photo-list">
+      <ul class="photo-list" v-if="photos.length">
         <photoItem
             v-for="(photo, index) in photos"
             :key="index"
             :imgSrcMain="photo.urls.small"
             :alt="photo.alt_description"
-            :imgUser="photo.user.profile_image.medium"
+            :imgUser="photo.user.profile_image.small"
             :userName="photo.user.name"
             :mainLike="photo.likes"
+            @data="dataLocal(photo.urls.small)"
         />
       </ul>
+      <p v-else style="text-align: center; margin-top: 50px">Введите что вы искали</p>
     </div>
   </div>
 </template>
@@ -44,6 +46,9 @@
           this.photos = response.data.results
           value = ''
         })
+      },
+      dataLocal(value) {
+        localStorage.setItem('data', JSON.stringify(value))
       }
     }
   }

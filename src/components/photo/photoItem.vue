@@ -18,7 +18,7 @@
         <span class="photo-list--like">
             Like: {{mainLike}}
           </span>
-        <button class="photo-list--add">
+        <button class="photo-list--add" @click="$emit('data')">
           ADD
         </button>
       </div>

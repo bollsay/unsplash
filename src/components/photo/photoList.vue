@@ -9,7 +9,7 @@
       :imgUser="photo.user.profile_image.small"
       :userName="photo.user.name"
       :mainLike="photo.likes"
-      @data="dataLocal(photo.urls.small)"
+      @data="dataLocal(photo)"
       v-else
     />
   </ul>
@@ -28,7 +28,8 @@
     data() {
       return {
         photos: [],
-        loading: true
+        loading: true,
+        local: []
       }
     },
     mounted() {
@@ -40,7 +41,8 @@
     },
     methods: {
       dataLocal(value) {
-        localStorage.setItem('data', JSON.stringify(value))
+        this.local.unshift(value)
+        localStorage.setItem('data', JSON.stringify(this.local))
       }
     }
   }

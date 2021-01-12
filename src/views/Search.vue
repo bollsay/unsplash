@@ -14,7 +14,7 @@
             :imgUser="photo.user.profile_image.small"
             :userName="photo.user.name"
             :mainLike="photo.likes"
-            @data="dataLocal(photo.urls.small)"
+            @data="dataLocal(photo)"
         />
       </ul>
       <p v-else style="text-align: center; margin-top: 50px">Введите что вы искали</p>
@@ -36,7 +36,8 @@
     },
     data() {
       return {
-        photos: []
+        photos: [],
+        local: []
       }
     },
     methods: {
@@ -48,7 +49,8 @@
         })
       },
       dataLocal(value) {
-        localStorage.setItem('data', JSON.stringify(value))
+        this.local.unshift(value)
+        localStorage.setItem('data', JSON.stringify(this.local))
       }
     }
   }

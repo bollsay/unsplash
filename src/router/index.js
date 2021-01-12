@@ -6,6 +6,7 @@ import Home from "@/views/Home"
 import Photo from "@/views/Photo"
 import Search from "@/views/Search";
 import Favorite from "@/views/Favorite";
+import page404 from "@/views/404"
 
 Vue.use(VueRouter)
 
@@ -29,6 +30,11 @@ const routes = [
     path: '/favorite',
     name: 'Favorite',
     component: Favorite
+  },
+  {
+    path: '*',
+    name: '404',
+    component: page404
   }
 ]
 
